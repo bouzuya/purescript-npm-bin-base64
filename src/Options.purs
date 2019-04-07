@@ -9,7 +9,11 @@ import Effect (Effect)
 import Options.Applicative ((<**>))
 import Options.Applicative as Options
 
-type Options = { decode :: Boolean, version :: Boolean }
+type Options =
+  { decode :: Boolean
+  , version :: Boolean
+  , wrap :: Int
+  }
 
 parse :: Effect Options
 parse = Options.execParser opts
@@ -21,7 +25,7 @@ parse = Options.execParser opts
 
 parser :: Options.Parser Options
 parser =
-  ({ decode: _, version: _ })
+  ({ decode: _, version: _, wrap: _ })
     <$> Options.switch
         ( Options.long "decode"
         <> Options.help "decode" )
@@ -29,3 +33,10 @@ parser =
         ( Options.long "version"
         <> Options.short 'V'
         <> Options.help "Show version" )
+    <*> Options.option
+          Options.int
+          ( Options.long "wrap"
+          <> Options.help "wrap encoded lines (0 is disabled)"
+          <> Options.showDefault
+          <> (Options.value 0)
+          <> Options.metavar "COLS")
