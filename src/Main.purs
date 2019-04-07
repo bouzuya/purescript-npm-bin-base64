@@ -34,13 +34,12 @@ encode s = do
   Buffer.toString Encoding.Base64 b
 
 app :: Options -> Effect Unit
-app options = do
-  if options.version
-    then Console.log Version.version
-    else do
-      input <- readStdin
-      processed <- (if options.decode then decode else encode) input
-      writeStdout processed
+app options
+  | options.version = Console.log Version.version
+  | otherwise = do
+    input <- readStdin
+    processed <- (if options.decode then decode else encode) input
+    writeStdout processed
 
 main :: Effect Unit
 main = Options.parse >>= app
