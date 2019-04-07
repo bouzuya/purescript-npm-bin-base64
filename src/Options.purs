@@ -24,5 +24,5 @@ parser =
   ({ version: _ })
     <$> Options.switch
         ( Options.long "version"
-        <> Options.short 'v'
+        <> Options.short 'V'
         <> Options.help "Show version" )
