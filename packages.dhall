@@ -116,6 +116,22 @@ let upstream =
 
 let overrides = {=}
 
-let additions = {=}
+let additions = {=} //
+      { exitcodes =
+          mkPackage
+          [ "enums"
+          ]
+          "https://github.com/Risto-Stevcev/purescript-exitcodes.git"
+          "v4.0.0"
+      , optparse =
+          mkPackage
+          [ "exitcodes"
+          , "free"
+          , "memoize"
+          , "node-process"
+          ]
+          "https://github.com/f-o-a-m/purescript-optparse.git"
+          "v1.0.0"
+      }
 
 in  upstream // overrides // additions
