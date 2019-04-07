@@ -9,12 +9,19 @@ import Effect.Console as Console
 import Node.Buffer as Buffer
 import Node.Encoding as Encoding
 import Node.FS.Sync as FS
+import Node.Process as Process
+import Node.Stream as Stream
 import Options (Options)
 import Options as Options
 import Version as Version
 
 readStdin :: Effect String
 readStdin = FS.readTextFile Encoding.UTF8 "/dev/stdin"
+
+writeStdout :: String -> Effect Unit
+writeStdout s = do
+  b <- Buffer.fromString s Encoding.UTF8
+  void (Stream.write Process.stdout b (pure unit))
 
 decode :: String -> Effect String
 decode s = do
@@ -33,7 +40,7 @@ app options = do
     else do
       input <- readStdin
       processed <- (if options.decode then decode else encode) input
-      Console.log processed
+      writeStdout processed
 
 main :: Effect Unit
 main = Options.parse >>= app
