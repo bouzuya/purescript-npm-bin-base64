@@ -9,7 +9,7 @@ import Effect (Effect)
 import Options.Applicative ((<**>))
 import Options.Applicative as Options
 
-type Options = { version :: Boolean }
+type Options = { decode :: Boolean, version :: Boolean }
 
 parse :: Effect Options
 parse = Options.execParser opts
@@ -21,8 +21,11 @@ parse = Options.execParser opts
 
 parser :: Options.Parser Options
 parser =
-  ({ version: _ })
+  ({ decode: _, version: _ })
     <$> Options.switch
+        ( Options.long "decode"
+        <> Options.help "decode" )
+    <*> Options.switch
         ( Options.long "version"
         <> Options.short 'V'
         <> Options.help "Show version" )
