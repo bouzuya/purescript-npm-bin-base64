@@ -6,6 +6,16 @@
 
 [bouzuya/w010]: https://github.com/bouzuya/w010
 
+## Usage
+
+```
+$ echo 'foo' | npx @bouzuya/base64
+Zm9vCg==
+
+$ echo 'Zm9vCg==' | npx @bouzuya/base64 --decode
+foo
+```
+
 ## How to build
 
 ```bash
