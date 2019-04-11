@@ -1,5 +1,5 @@
 {
-  "name": "purescript-npm-bin-base64",
+  "name": "@bouzuya/base64",
   "description": "@bouzuya/base64",
   "version": "0.1.0",
   "author": {
